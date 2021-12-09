@@ -54,17 +54,12 @@ int main() {
     return answer;
   };
 
-  int i = 0;
-  while ((int) sigs[0].size() > 1) {
-    filter(i, 0);
-    i++;
-  }
 
-  i = 0;
-  while ((int) sigs[1].size() > 1) {
+  for (int i = 0; (int) sigs[0].size() > 1; i++)
+    filter(i, 0);
+
+  for (int i = 0; (int) sigs[1].size() > 1; i++)
     filter(i, 1);
-    i++;
-  }
 
   if (sigs[0].empty())
     throw std::runtime_error("[Error] sigs[0] is empty");
