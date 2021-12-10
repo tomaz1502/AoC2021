@@ -1,6 +1,11 @@
 #include <iostream>
 #include <vector>
 
+void check(bool test, const std::string&& err_msg) {
+  if (!test)
+    throw std::runtime_error(err_msg);
+}
+
 int main() {
   std::ios::sync_with_stdio(false);
   std::cin.tie(nullptr);
@@ -16,8 +21,7 @@ int main() {
     sigs[1].push_back(s);
   }
 
-  if (sigs[0].empty())
-    throw std::runtime_error("[Error] Empty input");
+  check(!sigs[0].empty(), "[Error] Empty input");
 
   auto filter = [&] (int i, bool maj) {
     int cnt_on = 0, cnt_off = 0;
@@ -61,10 +65,8 @@ int main() {
   for (int i = 0; (int) sigs[1].size() > 1; i++)
     filter(i, 1);
 
-  if (sigs[0].empty())
-    throw std::runtime_error("[Error] sigs[0] is empty");
-  if (sigs[1].empty())
-    throw std::runtime_error("[Error] sigs[1] is empty");
+  check(!sigs[0].empty(), "[Error] sigs[0] is empty");
+  check(!sigs[1].empty(), "[Error] sigs[1] is empty");
 
   int oxy = get_dec(sigs[1][0]);
   int scrub = get_dec(sigs[0][0]);
