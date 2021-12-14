@@ -19,7 +19,7 @@ impl Line {
       io::Result<i16> {
         let mut num = vec![];
         buffer_b.read_until(separator, &mut num)?;
-        num.remove(num.len() - 1);
+        num.pop();
         Ok(Line::conv(&num))
     }
 
