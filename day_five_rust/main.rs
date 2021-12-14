@@ -9,10 +9,11 @@ struct Line {
 }
 
 impl Line {
-    fn conv(v: &Vec<u8>) -> i16 {
-        v.into_iter()
-         .map(|c| *c as i16 - '0' as i16)
-         .fold(0 as i16, |a, b| a * 10 + b)
+    fn conv(v: &Vec<u8>) -> io::Result<i16> {
+        Ok(std::str::from_utf8(v).unwrap().parse().unwrap())
+//        v.into_iter()
+//         .map(|c| *c as i16 - '0' as i16)
+//         .fold(0 as i16, |a, b| a * 10 + b)
     }
 
     fn next_number<T: BufRead>(separator: u8, buffer_b: &mut T) ->
@@ -20,7 +21,7 @@ impl Line {
         let mut num = vec![];
         buffer_b.read_until(separator, &mut num)?;
         num.pop();
-        Ok(Line::conv(&num))
+        Line::conv(&num)
     }
 
     fn new(buffer: &String) -> io::Result<Line> {
@@ -53,8 +54,7 @@ fn main() -> io::Result<()> {
              (1, -1), (1, 0), (1,1)];
 
     loop {
-        let bits_read = stdin.read_line(&mut buffer)?;
-        if bits_read <= 0 {
+        if stdin.read_line(&mut buffer)? <= 0 {
             break;
         }
 
