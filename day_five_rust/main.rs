@@ -41,7 +41,6 @@ impl Line {
 
 #[allow(non_snake_case)]
 fn main() -> io::Result<()> {
-    let mut buffer = String::new();
     let stdin = io::stdin();
 
     let size = 1000;
@@ -54,12 +53,12 @@ fn main() -> io::Result<()> {
              (1, -1), (1, 0), (1,1)];
 
     loop {
+        let mut buffer = String::new();
         if stdin.read_line(&mut buffer)? <= 0 {
             break;
         }
 
         let line = Line::new(&mut buffer)?;
-        buffer.clear();
 
         let M = max((line.x1 - line.x2).abs(), (line.y1 - line.y2).abs());
         let mut c_dx: i16 = 0;
