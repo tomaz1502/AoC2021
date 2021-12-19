@@ -78,7 +78,7 @@ int get_val(board* b) {
 }
 
 int main() {
-  char* input = (char*) malloc(sizeof(char) * buf_size);
+  char input[buf_size];
   getline(&input, &buf_size, stdin);
   int num_vals;
   int* vals = strip_input(input, &num_vals);
